@@ -1,0 +1,5 @@
+Copyright Notice
+
+2023 June 1st, All Rights Reserved.
+
+The code and any assets (hereby 'the content' or 'content') contained within this project are protected by copyright under International Copyright laws and is the property of Elran Amrussi (hereby 'the owner' or 'owner'). You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or other notice from copies of the content. Copying or storing any content except as provided above is expressly prohibited without prior written permission of the owner or the copyright holder identified in the individual content’s copyright notice. For permission to use the content, please email the owner at elran@outlook.com. Any external code and assets used in this project are the sole property of their respective owners.
