@@ -8,22 +8,21 @@ const animeListSchema = new mongoose.Schema({
     required: true,
   },
   animeId: {
-    type: ObjectId,
-    ref: 'Anime',
+    type: Number,
     required: true,
   },
   status: {
     type: String,
     required: true,
-    enum: ['watching','completed','on hold', 'plan to watch', 'dropped'],
+    enum: [1, 2, 3, 4, 5],
   },
   rating: {
     type: Number,
-    min: 1,
+    min: 0,
     max: 10
   }
 });
 
-const MovieList = mongoose.model('MovieList', animeListSchema);
+const AnimeList = mongoose.model('AnimeList', animeListSchema);
 
-module.exports = MovieList;
+module.exports = AnimeList;
