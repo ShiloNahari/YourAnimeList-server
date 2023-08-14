@@ -6,7 +6,7 @@ const { authenticateUser, authorizeUser } = require('../middleware/authenticatio
 
 router.get('/', getMyAnimeList);
 router.post('/', authenticateUser, authorizeUser(['user']), addAnimeToList);
-router.put('/:id', authenticateUser, updateStatusAndRating);
+router.put('/:id', authenticateUser, authorizeUser(['user']), updateStatusAndRating);
 router.delete('/:id', authenticateUser, authorizeUser(['user']), deleteAnimeFromList);
 
 module.exports = router;

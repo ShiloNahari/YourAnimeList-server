@@ -45,7 +45,7 @@ const createUser = async (req, res, next) => {
         userName: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(5).required(),
-        profilePicture: Joi.string().optional(),
+        profilePicture: Joi.string().required().default('https://png.pngtree.com/png-clipart/20210310/original/pngtree-default-male-avatar-png-image_5939655.jpg'),
         role: Joi.string().optional().default('user').valid('user','admin'),
     });
 
