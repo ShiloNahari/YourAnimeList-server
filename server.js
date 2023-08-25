@@ -12,7 +12,7 @@ const { refreshAuthTokenCookie } = require('./config/jwt');
 // Require routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-// const movieRoutes = require('./routes/movieRoutes');
+const commentRoutes = require('./routes/commentRoutes')
 const animeListRoutes = require('./routes/animeListRoutes');
 
 // Activate express
@@ -36,7 +36,7 @@ app.use(refreshAuthTokenCookie);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-// app.use('/api/movies', movieRoutes);
+app.use('/anime/comments', commentRoutes)
 app.use('/api/anime-list', animeListRoutes);
 
 // Error handler middleware

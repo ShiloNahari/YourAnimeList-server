@@ -9,15 +9,20 @@ const getMyAnimeList = async (req, res, next) => {
   
   const { userid } = req.query;
 
-  const yourAnimeList = await animeList.find({userId: new ObjectId(userid)});
-  console.log(yourAnimeList);
-  if (!yourAnimeList.length) {
-    return res.status(200).json([]);
+  try {
+    const yourAnimeList = await animeList.find({userId: new ObjectId(userid)});
+    
+    if (yourAnimeList.length <= 0) {
+      return res.status(200).json([]);
+    }
+    return res.status(200).json({ data: yourAnimeList });
+  } catch (error) {
+    return res.status(404).json({error: 'user not found'})
   }
-
-  return res.status(200).json({ data: yourAnimeList });
-
 }
+
+
+
 
 // Add a Anime to the user's list
 const addAnimeToList = async (req, res, next) => {
@@ -26,8 +31,7 @@ const addAnimeToList = async (req, res, next) => {
     animeId: Joi.string().required(),
     status: Joi.number().integer().min(1).max(5),
     episodesSeen: Joi.number().min(0),
-    rating: Joi.number().integer().min(0).max(10)  // 0 = rating not set !
-    .default(0),
+    rating: Joi.number().integer().min(0).max(10).default(0),
     title:Joi.string().required(),
     thumb:Joi.string().required(),
     type:Joi.string().optional(),      
@@ -35,10 +39,8 @@ const addAnimeToList = async (req, res, next) => {
 
   const { error } = schema.validate(req.body);
   if(error) {
-    console.log(error);
     return res.status(400).json({ error: error.details[0].message });
   };
-
 
 const { userId, animeId, status=1, rating=0, title, thumb,  type, episodesSeen,} = req.body;
 try {
@@ -67,7 +69,6 @@ try {
   return res.status(200).json({ created: addedAnime });
   
   } catch (error) {
-    console.log(error);
     next(error);
   }
 
@@ -91,7 +92,6 @@ const updateStatusAndRating = async (req, res, next) => {
     return res.status(400).json({ error: error.details[0].message });
   };
 
-  console.log('params=',req.params);
 
 
   const animeId = req.params.id;
@@ -114,15 +114,12 @@ const updateStatusAndRating = async (req, res, next) => {
   }
 
   try {
-    console.log(new ObjectId(parseInt(animeId)));
     const updatedObject = await animeList.findOneAndUpdate(
       {animeId,userId: new ObjectId(userId)},
       payload,
       { new: true },
       );
       
-    console.log(updatedObject);
-  
     if (!updatedObject) {
       return res.status(400).json({ error: 'Could not update this object' });
     }
@@ -130,7 +127,6 @@ const updateStatusAndRating = async (req, res, next) => {
     return res.status(200).json({ data: updatedObject });
 
   } catch (error) {
-    console.log(error);
     next(error)
   }
 };
@@ -141,7 +137,7 @@ const deleteAnimeFromList = async (req, res, next) => {
   const userId = req.user.id;
   const { id } = req.params;
   const {animeId } = req.body
-  console.log(id);
+  (id);
   try {
 
     const deletedAnime = await animeList.findOneAndRemove(
@@ -158,4 +154,4 @@ const deleteAnimeFromList = async (req, res, next) => {
 
 }
 
-module.exports = { getMyAnimeList, addAnimeToList, updateStatusAndRating, deleteAnimeFromList }
+module.exports = { getMyAnimeList, addAnimeToList, updateStatusAndRating, deleteAnimeFromList,  }

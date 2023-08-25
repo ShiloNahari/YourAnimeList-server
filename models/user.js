@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true, require: true },
     password: { type: String, require: true },
     role: { type: String, default: 'user', require: true },
-    profilePicture: { type: String, required: false, default: '' }
+    profilePicture: { type: String, required: false, default: 'https://png.pngtree.com/png-clipart/20210310/original/pngtree-default-male-avatar-png-image_5939655.jpg' }
 });
 
 userSchema.plugin(mongoosePaginate);

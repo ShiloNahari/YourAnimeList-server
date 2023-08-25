@@ -37,7 +37,7 @@ const getUserById = async (req, res, next) => {
     } catch(error) {
         next(error);
     }
- };
+};
 
 const createUser = async (req, res, next) => {
     // Validation schema for creating a new user
@@ -57,10 +57,10 @@ const createUser = async (req, res, next) => {
 
         const { userName, email, password, profilePicture, role } = req.body;
         
-        const found = User.findOne({email});
+        const found = await User.findOne({email});
 
         if(found) {
-            return res.status(400).json({error: 'This email already exists'});
+            return res.status(409).json({error: 'Email already exists'});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -71,9 +71,14 @@ const createUser = async (req, res, next) => {
             password: hashedPassword,
             profilePicture,
             role,
-        });
-
-        return res.status(201).json({ created: user });
+        },);
+        const payload = {
+            userName: user.userName,
+            email: user.email,
+            role: user.role,
+            profilePicture: user.profilePicture,
+        };
+        return res.status(201).json({ created: payload });
     } catch(error) {
         next(error);
     }
@@ -84,18 +89,17 @@ const updateUser = async (req, res, next) => {
     const userSchema = Joi.object({
         userName: Joi.string().required(),
         email: Joi.string().email().required(),
-        password: Joi.string().min(0).required(),
+        password: Joi.string().min(0).optional(),
         profilePicture: Joi.string().optional(),
         role: Joi.string().optional().default('user').valid('user','admin'),
     });
+    const { userName, email, password, profilePicture, role } = req.body;
     
     try {
         const { error } = userSchema.validate(req.body);
         if (error) {
             return res.status(400).json({error: error.details[0].message});
         }
-
-        const { userName, email, password, profilePicture, role } = req.body;
 
         let updatedUser;
         if (password !== '') {  // we want to update the password
