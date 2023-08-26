@@ -136,7 +136,6 @@ const deleteAnimeFromList = async (req, res, next) => {
 
   const userId = req.user.id;
   const { id } = req.params;
-  const {animeId } = req.body
   (id);
   try {
 

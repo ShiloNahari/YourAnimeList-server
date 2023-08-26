@@ -14,14 +14,14 @@ const seedUsers = async () => {
                 email: 'user@gmail.com',
                 password: await bcrypt.hash('user123',10),
                 role: 'user',
-                profilePicture: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
+                profilePicture: 'https://png.pngtree.com/png-clipart/20210310/original/pngtree-default-male-avatar-png-image_5939655.jpg',
             },
             {
                 userName: 'admin Smith',
                 email: 'admin@gmail.com',
                 password: await bcrypt.hash('admin123',10),
                 role: 'admin',
-                profilePicture: 'https://pixinvent.com/materialize-material-design-admin-template/laravel/demo-4/images/user/12.jpg',
+                profilePicture: 'https://png.pngtree.com/png-clipart/20210310/original/pngtree-default-male-avatar-png-image_5939655.jpg',
             }
         ];
 
@@ -53,11 +53,11 @@ const seedAll = async () => {
     // Guard
     const arguments = process.argv;
 
-    if (!arguments.includes('i-am-a-pro')) {
+    if (!arguments.includes('goodbye-database')) {
         console.log('WARNING!!');
         console.log('You are about to replace all the data in your database');
         console.log('with mockup / seed data ! This operation is ireversable !!');
-        console.log('If you know what you are doing, add "i-am-a-pro" argument.');
+        console.log('If you know what you are doing, add "goodbye-database" argument.');
         process.exit(1);
     };
 
